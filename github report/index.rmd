@@ -1,0 +1,64 @@
+---
+title: "index"
+output: html_document
+---
+
+```{r, echo = FALSE}
+# Load the libraries jsonlite, knitr, and dplyr
+#install.packages("jsonlite")
+#install.packages('curl')
+require(jsonlite)
+require(knitr)
+require(dplyr)
+
+# Create a variable that stores the name of our GitHub organization, INFO-498F. The rest of the code should be written such that, if you change the user, the code runs seamlessly.
+user <- 'INFO-498F'
+
+# Create a variable that contains the data about the user from GitHub. You can do this by using the fromJSON command to request information about your GitHub user. Make sure to pass in your authentication key as an argument to your API request.
+api_token <- '4948e49930ec5d68471113f2ca7c02f3dd9011b2'
+query_user <-paste0("https://api.github.com/users/", user, "?access_token=", api_token)
+data_user <- fromJSON(query_user)
+
+#you should have a $repos_url property that provides you with a different URL to request information specifically about the user's repositories
+new_repo <- data_user$repos_url
+repos_data <- fromJSON(paste0(new_repo,"?access_token=",api_token,"&sort=created&direction=desc&per_page=100"))
+flat_repos_data <- flatten(repos_data)
+
+#test if data.frame
+class(repos_data)
+
+#A variable num_repos that has the number of repositories that were returned to you.
+num_repos <- nrow(repos_data)
+
+
+#A variable most_popular that has the name of the repository with the greatest number of forks.
+most_popular <- repos_data$name[repos_data$forks_count == max(repos_data$forks_count)]
+```
+**USER REPORT**
+
+The username is `r user`, the number of repositories the user has is `r num_repos`, the most popular repository of the user is`r most_popular`.
+
+![avatar](`r flat_repos_data$owner.avatar_url`)
+
+```{r, echo=FALSE}
+#adds a column with year month date
+flat_repos_data$date_repo <- as.Date(flat_repos_data$created_at, format = "%Y-%m-%d")
+#creates new data.frame with new certain columns then changes the name
+my_data <- flat_repos_data %>% 
+             select(id, html_url, description, fork, date_repo)
+names(my_data) <- c("User_tag","html.url","Description","Forked", "new_date_setup")
+```
+#This is a table that shows the id tag, the html url link, the Description of the assignment, wether the assignment is forked or not, and the year, month, date.
+
+`r kable(my_data)`
+
+```{r, echo=FALSE}
+language_repo <- group_by(flat_repos_data, language) %>%
+    summarise(number = n(), average = mean(forks))
+
+```
+#This table shows the type of language used, how many times it is used, and the average number of forks
+
+`r kable(language_repo)`
+
+
