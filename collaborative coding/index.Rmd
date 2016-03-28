@@ -1,0 +1,43 @@
+---
+title: "index"
+output: html_document
+---
+
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(plotly)
+library(dplyr)
+
+#sets working directory
+#setwd("C:/Users/justinlee/Documents/assignment-7")
+
+# calls the data and functions
+data <- read.csv("https://raw.githubusercontent.com/INFO-498F/a7-survey-data/master/intro_survey_data.csv")
+source("scripts/summary.R")
+source("scripts/chart_1.R")
+source("scripts/Chart_2.R")
+
+list_information <- summary_information(data)
+
+```
+#### Summary
+There are `r list_information$Applying[1]` freshman, `r list_information$Applying[2]` sophmore, `r list_information$Applying[3]` juniors, `r list_information$Applying[4]` seniors that are applying for the informatics major that are currently in Info 498F.
+
+There are `r list_information$Not_Applying[1]` freshman, `r list_information$Not_Applying[2]` sophmore, `r list_information$Not_Applying[3]` juniors, `r list_information$Not_Applying[4]` seniors that are not applying for the informatics major that are currently in Info 498F.
+
+There are `r list_information$Mac_Users[1]` freshman, `r list_information$Mac_Users[2]` sophmore, `r list_information$Mac_Users[3]` juniors, `r list_information$Mac_Users[4]` seniors that use Macs that are currently in Info 498F with a total of `r sum(list_information$Mac_Users)` users.
+However, there are a total of `r sum(list_information$Windows_Users)` Window users and `r sum(list_information$Windows_Users)` > `r sum(list_information$Mac_Users)` therefore Windows are better than Macs.
+
+
+#### Chart 1
+```{r, echo=FALSE}
+chartOne(data)
+
+```
+
+####Chart 2
+```{r, echo=FALSE}
+chartTwo(data)
+
+```
+
