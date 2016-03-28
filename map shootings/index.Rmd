@@ -1,0 +1,130 @@
+---
+title: "index"
+output: html_document
+--
+```{r, echo=FALSE}
+require(knitr)
+require(dplyr)
+require(plotly)
+
+#set the working directory
+#setwd("C:/Users/justinlee/Documents/a6-mapping-shootings")
+
+shooting_data <- read.csv("data/Mass-Shooting-Data.csv")
+
+#1. How many shootings occured through what dates
+shooting_occured <- nrow(shooting_data)
+dates_2015 <- as.vector(shooting_data$date)
+first <- dates_2015[shooting_occured]
+last <- dates_2015[1]
+
+#2. total casulties 
+sum_injure_kill <- sum(shooting_data$injured) + sum(shooting_data$killed)
+
+#3. Most affected city. Not piped with filter beacuse affected_city is used for the graph and less
+#redundant to create another data.frame like affected_city
+affected_city <- group_by(shooting_data, city) %>%
+                  summarise(
+                        max_injured = sum(injured),
+                        max_killed = sum(killed),
+                        sum = max_injured + max_killed
+                  )
+                  
+most_affected_city <- filter(affected_city, sum == max(sum))
+        
+#4 table of information of the city with the most total casualities within the state
+affected_state <- group_by(shooting_data, state, city) %>%
+                  summarise(
+                        max_injured = sum(injured),
+                        max_killed = sum(killed),
+                        sum = max_injured + max_killed
+                  ) %>%
+                          filter(sum == max(sum))
+
+```
+
+####Summary of shooting Data
+
+In the year 2015 there have been `r shooting_occured` shootings between the dates `r first` and `r last`, with a total of `r sum(shooting_data$injured)` injured and `r sum(shooting_data$killed)` killed. The total number of casulties, death and injuries combined, in the year 2015 from shootings were `r sum_injure_kill`.
+
+The most affected city in terms of the total amount of casulties is `r most_affected_city$city`. The total number of injured is `r most_affected_city$max_injured`, killed is `r most_affected_city$max_killed`, and total casualty is `r most_affected_city$sum`.
+
+Below is a table that shows the information of the cities with the most highest total casualities within the state in the year 2015.
+`r kable(affected_state)`
+
+This table is of the the most affected city in 2015; the injuries, deaths, and total casualties.
+`r kable(most_affected_city)`
+
+```{r, echo=FALSE}
+#select a row at random and will use that as my specific incident
+most_deaths <- shooting_data[sample(nrow(shooting_data), 1), ] 
+most_deaths$sum <- sum(most_deaths$injured) + sum(most_deaths$killed)
+
+
+```
+
+####Specific event of the least total casualties
+In the year 2015 `r shooting_occured` shooting occured in the United States. On `r most_deaths$date` there was a shooting held in `r most_deaths$city`, `r most_deaths$state`, specifically `r most_deaths$lat`, `r most_deaths$lng`. 
+
+In `r most_deaths$city` there are `r most_deaths$injured` injured and `r most_deaths$killed` dead. In total there are `r most_deaths$sum` casualties, deaths and injured totalled. 
+
+#####MAP
+```{r, echo=FALSE}
+g<- list(
+    scope = 'usa',
+    projection = list(type = 'albers usa'),
+    showland = TRUE,
+    landcolor = toRGB("gray85"),
+    subunitwidth = 1,
+    countrywidth = 1,
+    subunitcolor = toRGB("white"),
+    countrycolor = toRGB("white")
+  )
+
+plot_ly(
+  shooting_data,
+  type = 'scattergeo',
+  text = paste0("On ", date, " ", killed, " killed, ", "and ", injured, " injured, ", "in ", city, ", ", state),
+  locationmode = 'USA-states',
+  lat = lat,
+  lon = lng,
+  marker = list(
+    opacity = 0.5,
+    size = (injured + (killed * 3)) + 3,
+    color = 'red'
+  )
+)%>% 
+  layout(title = 'Shootings of the year 2015', geo = g)
+```
+
+###### INTERACTIVE BUBBLE PLOT
+In the bubble plot, x-axis represents the amount of times someone was injured, y-axis represents the number of time someone was killed. The size represents the severity of the situation, which in this case is the total casualties. That is also why the bubbLes that are the farthest away represent the cities with the most casualties, because the farther away the x or y is the greater the number will be, making the bubble bigger. 
+
+```{r, echo=FALSE}
+plot_ly(
+        affected_city,
+        x = max_injured,
+        y = max_killed,
+        size = sum,
+        mode = "markers",
+        text = city
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```

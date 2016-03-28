@@ -1,0 +1,51 @@
+"","Murder","Assault","UrbanPop","Rape","states","ten_times_more"
+"Alabama",13.2,236,58,21.2,"Alabama",TRUE
+"Alaska",10,263,48,44.5,"Alaska",TRUE
+"Arizona",8.1,294,80,31,"Arizona",TRUE
+"Arkansas",8.8,190,50,19.5,"Arkansas",TRUE
+"California",9,276,91,40.6,"California",TRUE
+"Colorado",7.9,204,78,38.7,"Colorado",TRUE
+"Connecticut",3.3,110,77,11.1,"Connecticut",TRUE
+"Delaware",5.9,238,72,15.8,"Delaware",TRUE
+"Florida",15.4,335,80,31.9,"Florida",TRUE
+"Georgia",17.4,211,60,25.8,"Georgia",TRUE
+"Hawaii",5.3,46,83,20.2,"Hawaii",FALSE
+"Idaho",2.6,120,54,14.2,"Idaho",TRUE
+"Illinois",10.4,249,83,24,"Illinois",TRUE
+"Indiana",7.2,113,65,21,"Indiana",TRUE
+"Iowa",2.2,56,57,11.3,"Iowa",TRUE
+"Kansas",6,115,66,18,"Kansas",TRUE
+"Kentucky",9.7,109,52,16.3,"Kentucky",TRUE
+"Louisiana",15.4,249,66,22.2,"Louisiana",TRUE
+"Maine",2.1,83,51,7.8,"Maine",TRUE
+"Maryland",11.3,300,67,27.8,"Maryland",TRUE
+"Massachusetts",4.4,149,85,16.3,"Massachusetts",TRUE
+"Michigan",12.1,255,74,35.1,"Michigan",TRUE
+"Minnesota",2.7,72,66,14.9,"Minnesota",TRUE
+"Mississippi",16.1,259,44,17.1,"Mississippi",TRUE
+"Missouri",9,178,70,28.2,"Missouri",TRUE
+"Montana",6,109,53,16.4,"Montana",TRUE
+"Nebraska",4.3,102,62,16.5,"Nebraska",TRUE
+"Nevada",12.2,252,81,46,"Nevada",TRUE
+"New Hampshire",2.1,57,56,9.5,"New Hampshire",TRUE
+"New Jersey",7.4,159,89,18.8,"New Jersey",TRUE
+"New Mexico",11.4,285,70,32.1,"New Mexico",TRUE
+"New York",11.1,254,86,26.1,"New York",TRUE
+"North Carolina",13,337,45,16.1,"North Carolina",TRUE
+"North Dakota",0.8,45,44,7.3,"North Dakota",TRUE
+"Ohio",7.3,120,75,21.4,"Ohio",TRUE
+"Oklahoma",6.6,151,68,20,"Oklahoma",TRUE
+"Oregon",4.9,159,67,29.3,"Oregon",TRUE
+"Pennsylvania",6.3,106,72,14.9,"Pennsylvania",TRUE
+"Rhode Island",3.4,174,87,8.3,"Rhode Island",TRUE
+"South Carolina",14.4,279,48,22.5,"South Carolina",TRUE
+"South Dakota",3.8,86,45,12.8,"South Dakota",TRUE
+"Tennessee",13.2,188,59,26.9,"Tennessee",TRUE
+"Texas",12.7,201,80,25.5,"Texas",TRUE
+"Utah",3.2,120,80,22.9,"Utah",TRUE
+"Vermont",2.2,48,32,11.2,"Vermont",TRUE
+"Virginia",8.5,156,63,20.7,"Virginia",TRUE
+"Washington",4,145,73,26.2,"Washington",TRUE
+"West Virginia",5.7,81,39,9.3,"West Virginia",TRUE
+"Wisconsin",2.6,53,66,10.8,"Wisconsin",TRUE
+"Wyoming",6.8,161,60,15.6,"Wyoming",TRUE
